@@ -13,6 +13,27 @@ void get_coefficient_matrix(matrix &coefficient_matrix) {
     int num_vars;
     int num_eqs;
 
+    cin >> num_vars;
+    cin >> num_eqs;
+
+    if (num_eqs < num_vars) {
+        throw std::invalid_argument("Num_eqs must be >= Num_vars");
+    }
+
+    coefficient_matrix = matrix(num_eqs, vector<rational>(num_vars + 1));
+
+    for (int i{}; i < num_eqs; ++i) {
+        for (int j{}; j < num_vars; ++j) {
+            cin >> coefficient_matrix[i][j];
+        }
+        cin >> coefficient_matrix[i][num_vars];
+    }
+}
+
+void get_coefficient_matrix_friendly_input(matrix &coefficient_matrix) {
+    int num_vars;
+    int num_eqs;
+
     cout << "Enter number of variables, Xi: ";
     cin >> num_vars;
     cout << "Enter number of equations, Ej: ";
@@ -35,7 +56,6 @@ void get_coefficient_matrix(matrix &coefficient_matrix) {
         cin >> coefficient_matrix[i][num_vars];
     }
 }
-
 // lambda to sort vectors in descending order
 auto vector_sort = [](const vector<rational> &vec_a, const vector<rational> &vec_b) {
     int size_a = vec_a.size();
@@ -121,7 +141,6 @@ vector<rational> solve(const matrix &coefficient_matrix) {
 int main() {
     matrix coefficient_matrix;
     get_coefficient_matrix(coefficient_matrix);
-    cout << endl;
     // order rows
     sort(coefficient_matrix.begin(), coefficient_matrix.end(), vector_sort);
 
@@ -134,5 +153,4 @@ int main() {
     for (size_t i{}; i < values.size(); ++i) {
         cout << "X" << i << ": " << values[i] << "\n";
     }
-    cout << endl;
 }
