@@ -127,18 +127,12 @@ int main() {
 
     // convert to row echelon form
     row_echelon_transformer(coefficient_matrix);
-    for (const auto &row : coefficient_matrix) {
-        for (const auto &coefficient : row) {
-            cout << coefficient << " ";
-        }
-        cout << endl;
-    }
 
     // solve for variables
     auto values = solve(coefficient_matrix);
 
-    for (const auto &val : values) {
-        cout << val << " ";
+    for (size_t i{}; i < values.size(); ++i) {
+        cout << "X" << i << ": " << values[i] << "\n";
     }
     cout << endl;
 }
